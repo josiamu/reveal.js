@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Reveal.js</title>
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css" id="theme">
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+          document.write( '<link rel="stylesheet" href="/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides"><section  data-markdown><script type="text/template">## Chapter 03 - React.js
+</script></section><section  data-markdown><script type="text/template">
+## `jQuery`
+</script></section><section  data-markdown><script type="text/template">
+## `AngularJS`
+</script></section><section  data-markdown><script type="text/template">
+## `React.js`
+</script></section><section  data-markdown><script type="text/template">
+## Web Component
+</script></section><section  data-markdown><script type="text/template">
+### `React.js` Installation
+
+Terminal
+
+	jspm install react
+	jspm install react-dom
+</script></section><section  data-markdown><script type="text/template">
+### Hello World
+
+app/Chapter03.js
+
+	import React from 'react';
+
+	class Chapter03 extends React.Component {
+		render() {
+			return (
+				<div>
+					<h3>React.js - Hello World</h3>
+				</div>
+			);
+		}
+	}
+
+	export default Chapter03
+
+> JSX Auto Complete - Windows: Ctrl+E, OSX: Cmd+E
+</script></section><section  data-markdown><script type="text/template">
+index.html
+
+	<body>
+		<div id="app"></div>
+
+		< script>...< /script>
+	</body>
+
+app/index.js
+
+	import React from 'react';
+	import ReactDOM from 'react-dom';
+
+	import Chapter03 from './Chapter03';
+
+	ReactDOM.render(<Chapter03 />, document.getElementById('app'));
+</script></section><section  data-markdown><script type="text/template">
+### JSX
+
+JSX
+
+	render() {
+		return (
+			<div>
+				<h3>React.js - Hello World</h3>
+			</div>
+		);
+	}
+
+Transpiled
+
+	let h3 = React.createElement('h3', {}, 'React.js - Hello World');
+	let div = React.createElement('div', {}, h3);
+</script></section><section  data-markdown><script type="text/template">
+## `ReactDOM`
+</script></section><section  data-markdown><script type="text/template">
+### CSS Class
+
+index.html
+
+	<head>
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+	</head>
+
+app/Chapter03.js
+
+	class Chapter03 extends React.Component {
+		render() {
+			return (
+				<div>
+					<button className="btn btn-primary">
+						Foo
+					</button>
+				</div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+### JavaScript Coding
+
+app/Chapter03.js
+
+	class Chapter03 extends React.Component {
+		render() {
+			// any coding here
+			console.log('Foo');
+
+			return (
+				<div></div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+### Internal Function
+
+app/Chapter03.js
+
+	class Chapter03 extends React.Component {
+		internalFunction() {
+			console.log('Bar');
+		}
+
+		render() {
+			this.internalFunction();
+
+			return (
+				{ this.internalFunction() }
+				{ console.log('Baz') }
+				<div></div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+### `Props`
+
+app/Chapter03.js
+
+	class Chapter03 extends React.Component {
+		render() {
+			return (
+				<div>
+					<h3>React.js</h3>
+					<p>{ this.props.foo }</p>
+					<p>{ this.props.bar }</p>
+				</div>
+			);
+		}
+	}
+
+app/index.js
+
+	ReactDOM.render(<Chapter03 foo="Foo" bar="Bar" />,
+		document.getElementById('app'));
+</script></section><section  data-markdown><script type="text/template">
+### Default `Props`
+
+app/Chapter03.js
+
+	class Chapter03 extends React.Component {
+		...
+	}
+
+	Chapter03.defaultProps = { foo: 'Foo (Default)' }
+
+app/index.js
+
+	ReactDOM.render(<Chapter03 bar="Bar" />,
+		document.getElementById('app'));
+</script></section><section  data-markdown><script type="text/template">
+### `Props` Validation
+
+app/Chapter03.js
+
+	Chapter03.propTypes = {
+		foo: React.PropTypes.string,
+		bar: React.PropTypes.number,
+		baz: React.PropTypes.string.isRequired
+	}
+</script></section><section  data-markdown><script type="text/template">
+### Event
+
+app/Chapter03.js
+
+	class Chapter03 extends React.Component {
+		handleClick(event) {
+			console.log('Foo', event);
+		}
+
+		render() {
+			return (
+				<div>
+					<button onClick={ this.handleClick }>
+						Foo
+					</button>
+				</div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+### `State`
+
+app/Chapter03.js
+
+	class Chapter03 extends React.Component {
+		constructor() {
+			super();
+
+			this.state = { baz: 'Baz' };
+		}
+
+		handleClick(event) {
+			this.setState({ baz: 'Bazzzzz' });
+		}
+
+		...
+	}
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter03.js
+
+	class Chapter03 extends React.Component {
+		...
+
+		render() {
+			return (
+				<div>
+					<h3>baz: { this.state.baz }</h3>
+					<button onClick={ this.handleClick.bind(this) }>
+						Foo
+					</button>
+				</div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+### 2 Way Data Binding
+
+app/Chapter03.js
+
+	class Chapter03 extends React.Component {
+		constructor() {
+			super();
+
+			this.state = { text: '' };
+		}
+
+		handleChange(event) {
+			this.setState({ text: event.target.value });
+		}
+
+		...
+	}
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter03.js
+
+	class Chapter03 extends React.Component {
+		...
+
+		render() {
+			return (
+				<div>
+					<input type="text"
+						onChange={ this.handleChange.bind(this) } />
+					<p>Your Text: { this.state.text }</p>
+				</div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+## Quiz-01
+
+app/Quiz01.js
+
+	class Quiz01 extends React.Component {
+		...
+	}
+
+app/index.js
+
+	import Quiz01 from './Quiz01';
+
+	ReactDOM.render(...);
+</script></section><section  data-markdown><script type="text/template">
+## End</script></section></div>
+        </div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

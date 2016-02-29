@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Reveal.js</title>
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css" id="theme">
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+          document.write( '<link rel="stylesheet" href="/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides"><section  data-markdown><script type="text/template">## Chapter 04 - Condition & Loop
+</script></section><section  data-markdown><script type="text/template">
+### Condition in JSX
+
+	render() {
+		let foo = true;
+		return (
+			<div>
+				{ foo ? <p>Foo</p> : <p>Bar</p> }
+
+				{ foo && <p>Foo</p> || <p>Bar</p> }
+			</div>
+		);
+	}
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter04.js
+
+	import React form 'react';
+	class Chapter04 extends React.Component {
+		constructor() {
+			super();
+			this.state = { counter: 0 };
+		}
+		render() {
+			let isOdd = this.state.counter % 2;
+			return (
+				<div>
+					<h3>Counter: { this.state.counter }</h3>
+					{ isOdd && <p>Odd</p> || <p>Event</p> }
+				</div>
+			);
+		}
+	}
+
+app/index.js
+
+	import Chapter04 from './Chapter04';
+
+	ReactDOM.render(<Chapter04 />, document.getElelmentById('app'));
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter.js
+
+	class Chapter04 extends Component {
+		handleClick(event) {
+			this.setState({ counter: ++this.state.counter });
+		}
+		render() {
+			let isOdd = this.state.counter % 2;
+			return (
+				<div>
+					...
+					<button onClick={ this.handleClick.bind(this) }>
+						Counter++
+					</button>
+				</div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+### Loop in JSX
+
+	render() {
+		let customers = [];
+		return (
+			<div>
+				{ customers.map(customer => { console.log(customer) }) }
+
+				{
+					customers.map(customer => {
+						return <li>{ customer }</li>
+					})
+				}
+			</div>
+		);
+	}
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter04.js
+
+	const customers = [
+		{ id: 1, name: 'Customer 01' },
+		{ id: 2, name: 'Customer 02' },
+		{ id: 3, name: 'Customer 03' },
+		{ id: 4, name: 'Customer 04' },
+		{ id: 5, name: 'Customer 05' }
+	];
+
+	class Chapter04 extends React.Component {
+	}
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter04.js
+
+	class Chapter04 extends React.Component {
+		render() {
+			return (
+				<div>
+					<ul>
+						{
+							customers.map(customer => {
+								return <li>{ customer.name }</li>
+							})
+						}
+					</ul>
+				<div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter04.js
+
+	{
+		customers.map(customer => {
+			return <li key={ customer.id }>{ customer.name }</li>
+		})
+	}
+</script></section><section  data-markdown><script type="text/template">
+## End</script></section></div>
+        </div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

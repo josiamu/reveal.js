@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Reveal.js</title>
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css" id="theme">
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+          document.write( '<link rel="stylesheet" href="/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides"><section  data-markdown><script type="text/template">## Chapter 10 - `react-router`
+</script></section><section  data-markdown><script type="text/template">
+## Single Page Application
+</script></section><section  data-markdown><script type="text/template">
+### Page Map
+
+	App
+		Home
+		Contact
+		About
+
+</script></section><section  data-markdown><script type="text/template">
+###Install react-router
+
+  jspm install react-router
+
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter10/App.js
+
+	import React from 'react';
+
+	class App extends React.Component {
+		render() {
+			return (
+				<div>
+					<h3>App</h3>
+				</div>
+			);
+		}
+	}
+
+	export default App;
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter10/Home.js
+
+	import React from 'react';
+
+	class Home extends React.Component {
+		render() {
+			return (
+				<div>
+					<h3>Home</h3>
+				</div>
+			);
+		}
+	}
+
+	export default Home;
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter10/Contact.js
+
+	import React from 'react';
+
+	class Contact extends React.Component {
+		render() {
+			return (
+				<div>
+					<h3>Contact</h3>
+				</div>
+			);
+		}
+	}
+
+	export default Contact;
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter10/About.js
+
+	import React from 'react';
+
+	class About extends React.Component {
+		render() {
+			return (
+				<div>
+					<h3>About</h3>
+				</div>
+			);
+		}
+	}
+
+	export default About;
+</script></section><section  data-markdown><script type="text/template">
+app/index.js
+
+	import App from './Chapter10/App';
+	import Home from './Chapter10/Home';
+	import Contact from './Chapter10/Contact';
+	import About from './Chapter10/About';
+
+	ReactDOM.render(<App />,
+		document.getElementById('app'));
+</script></section><section  data-markdown><script type="text/template">
+### Router
+
+app/index.js
+
+	import { Router, Route, IndexRoute, browserHistory }
+		from 'react-router';
+
+	ReactDOM.render((
+		<Router history={ browserHistory }>
+			<Route path="/" component={ App }>
+		</Router>
+	),
+		document.getElementById('app'));
+</script></section><section  data-markdown><script type="text/template">
+### Link
+
+app/Chapter10/App.js
+
+	import { Link } from 'react-router';
+
+	class App extends React.Component {
+		render() {
+			return (
+				<div>
+					<h3>App</h3>
+					<Link to="/">Home</Link>
+					<Link to="/contact">Contact</Link>
+					<Link to="/about">About</Link>
+					<hr/>
+					{ this.props.children }
+				</div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+app/index.js
+
+	<Router history={ browserHistory }>
+		<Route path="/" component={ App }>
+			<IndexRoute component={ Home }></IndexRoute>
+			<Route path="contact" component={ Contact }></Route>
+			<Route path="about" component={ About }></Route>
+		</Route>
+	</Router>
+</script></section><section  data-markdown><script type="text/template">
+## End</script></section></div>
+        </div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

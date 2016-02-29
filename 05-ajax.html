@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Reveal.js</title>
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css" id="theme">
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+          document.write( '<link rel="stylesheet" href="/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides"><section  data-markdown><script type="text/template">## Chapter 05 - AJAX
+</script></section><section  data-markdown><script type="text/template">
+### jQuery
+
+Terminal
+
+	jspm install jquery
+
+Browser
+
+	api.tutor4dev.com/employees
+
+app/Chapter05.js
+
+	import React from 'react';
+	import $ from 'jquery';
+
+	const pathUrl = 'employees';
+	class Chapter05 extends React.Component {
+		render() {
+			return ();
+		}
+	}
+
+app/index.js
+
+	const mainUrl = 'http://api.tutor4dev.com';
+
+	import Chapter05 from './Chapter05';
+	ReactDOM.render(<Chapter05 URL={ mainUrl } />, appPosition);
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter05.js
+
+	class Chapter05 extends React.Component {
+		constructor() {
+			super();
+			this.state = {
+				employees: []
+			};
+		}
+		handleClick(event) {
+			let url = `${ this.props.URL }/${pathUrl}`;
+			$.get(url).then(employees => {
+				this.setState({
+					employees: employees
+				})
+			});
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter05.js
+
+	class Chapter05 extends React.Component {
+		render() {
+			return (
+				<div>
+					<button onClick={ this.handleClick.bind(this) }>
+						Employees</button>
+					<ul>
+						{ this.state.employees.map(employee => {
+							return (
+								<li key={ employee.id }>
+									{ employee.first_name },
+										{ employee.last_name }
+								</li>
+							);
+						}) }
+					</ul>
+				</div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+## End</script></section></div>
+        </div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

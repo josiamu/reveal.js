@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Reveal.js</title>
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css" id="theme">
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+          document.write( '<link rel="stylesheet" href="/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides"><section  data-markdown><script type="text/template">## Chapter 02 - JavaScript & ES6
+</script></section><section  data-markdown><script type="text/template">
+## Legacy JavaScript (ES5)
+</script></section><section  data-markdown><script type="text/template">
+### Variables
+
+Chrome
+
+	var qty = 20
+	price = 100
+	total = qty * price
+</script></section><section  data-markdown><script type="text/template">
+### Data Types
+
+Chrome
+
+	var none;
+	length = 16;
+	lastName = 'Johnson';
+	cars = ['Saab', 'Volvo', 'BMW'];
+	person = { firstName: 'John', lastName: 'Doe' };
+
+	console.log(typeof none);
+	console.log(typeof cars);
+</script></section><section  data-markdown><script type="text/template">
+### Function
+
+Chrome
+
+	function foo() { }
+
+	function bar() { console.log('Bar') }
+	bar()
+
+	function baz(x, y) { return x * y }
+	baz(10, 20)
+
+</script></section><section  data-markdown><script type="text/template">
+### Function Expression
+
+Chrome
+
+	var foo = function() { }
+
+	var bar = function() { console.log('Bar') }
+	console.log(bar);
+	bar()
+
+	var baz = function(x, y) { return x * y }
+	console.log(baz);
+	baz(10, 20)
+</script></section><section  data-markdown><script type="text/template">
+### Self-Invoking Function
+
+	// anonymous function
+	function() { }
+
+	// self invoking function
+	(function() { }) ()
+	(function() { console.log('Foo') })();
+</script></section><section  data-markdown><script type="text/template">
+### Arrays
+
+Chrome
+
+	arr = [];
+	numbers = [10, 20, 30, 40];
+	person = ['John', 'Doe', 46];
+
+	numbers.length;
+
+	// insert
+	numbers.push(50);
+	// delete
+	numbers.splice(0, 1);
+</script></section><section  data-markdown><script type="text/template">
+### Object
+
+Chrome
+
+	obj = {};
+	person = { name: 'John', age: 20 };
+
+	console.log(person);
+
+	// insert property
+	person.job = 'Developer';
+	person.interested = ['sport', 'music'];
+	person.address = { province: 'BKK', country: 'Thailand' };
+	// insert function
+	person.run = function() {
+		console.log('Run !');
+	}
+
+	// delete property
+	delete person.job;
+</script></section><section  data-markdown><script type="text/template">
+### Array of Object
+
+Chrome
+
+	arrOfObj = [ {} ]
+	customers = [ { id: 101 }, { id: 102 } ]
+
+	customer1 = customers[0]
+	customer2 = customers[1]
+
+	console.log(customer1.id, customer2.id)
+</script></section><section  data-markdown><script type="text/template">
+## ES6 (ES2015)
+</script></section><section  data-markdown><script type="text/template">
+## Transpilation
+
+ES6
+
+	import React from 'react';
+
+	class ReactApp extends React.Component {
+		render() {
+			return (
+				<div>
+					<h3>App Component</h3>
+				</div>
+			);
+		}
+	}
+
+	export default ReactApp;
+</script></section><section  data-markdown><script type="text/template">
+Transpiled ES5
+
+	var ReactApp = function (_React$Component) {
+		_inherits(ReactApp, _React$Component);
+		_createClass(ReactApp, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement('div',	null,
+					_react2.default.createElement('h3',	null,
+						'App Component'
+					)
+				);
+			}
+		}]);
+		return ReactApp;
+	}
+</script></section><section  data-markdown><script type="text/template">
+### ES6 Class
+
+app/index.js
+
+	// declare
+	class Foo {
+	}
+
+	// instantiate
+	let foo = new Foo();
+
+	console.log(foo);
+</script></section><section  data-markdown><script type="text/template">
+### Instance Method
+
+app/index.js
+
+	class Foo {
+		bar() {
+			console.log('bar');
+		}
+
+		baz() {
+			console.log('baz');
+		}
+	}
+
+	let foo = new Foo();
+
+	// instance method
+	foo.bar();
+	foo.baz();
+</script></section><section  data-markdown><script type="text/template">
+### Class Inheritance
+
+app/index.js
+
+	class SuperFoo extends Foo {
+	}
+
+	let superFoo = new SuperFoo();
+	superFoo.bar();
+	superFoo.baz();
+</script></section><section  data-markdown><script type="text/template">
+### Method Overridden
+
+app/index.js
+
+	class SuperFoo extends Foo {
+		bar() {
+			console.log('super bar');
+		}
+
+		baz() {
+			super.baz();
+			console.log('super baz');
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+### Module
+
+app/Chapter02/Foo.js
+
+	class Foo {
+	}
+	export default Foo;
+
+app/Chapter02/SuperFoo.js
+
+	import Foo from './Foo';
+
+	class SuperFoo extends Foo {
+	}
+	export default SuperFoo;
+
+app/index.js
+
+	import Foo from './Chapter02/Foo';
+	import SuperFoo from './Chapter02/SuperFoo';
+
+	let foo = new Foo();
+	let superFoo = new SuperFoo();
+</script></section><section  data-markdown><script type="text/template">
+## End</script></section></div>
+        </div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
+
+
+        

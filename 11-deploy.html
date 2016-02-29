@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Reveal.js</title>
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css" id="theme">
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+          document.write( '<link rel="stylesheet" href="/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides"><section  data-markdown><script type="text/template">## Chapter 11 - Deployment
+</script></section><section  data-markdown><script type="text/template">
+### Ecosystem Installation
+
+Terminal
+
+    npm -g install uglify-js
+	npm -g install htmlprocessor
+</script></section><section  data-markdown><script type="text/template">
+### Transpilation + Bundle
+
+Terminal
+
+	jspm bundle-sfx app/index public/app.js
+</script></section><section  data-markdown><script type="text/template">
+### `uglifyjs` (Minify)
+
+Terminal
+
+	uglifyjs public/app.js --output public/app.min.js
+</script></section><section  data-markdown><script type="text/template">
+### HTML Modification
+
+index.html
+
+	<!-- build:css css/bootstrap.min.css -->
+	< link href="public/css/bootstrap.min.css">
+	<!-- /build -->
+
+	<!-- build:js app.min.js -->
+	< script src="jspm_packages/system.js">< /script>
+	< script src="config.js">< /script>
+	< script>
+		System.import('app/index');
+	< /script>
+	<!-- /build -->
+
+Terminal
+
+	htmlprocessor index.html --output public/index.html
+</script></section><section  data-markdown><script type="text/template">
+Terminal
+
+	live-server public/
+
+Browser
+
+	localhost:8080
+</script></section><section  data-markdown><script type="text/template">
+## End</script></section></div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+                // Optional reveal.js plugins
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true },
+                    { src: 'plugin/notes/notes.js', async: true }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>

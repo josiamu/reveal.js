@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Reveal.js</title>
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css" id="theme">
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+          document.write( '<link rel="stylesheet" href="/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides"><section  data-markdown><script type="text/template">## Chapter 09 - Inline Style
+</script></section><section  data-markdown><script type="text/template">
+### Inline Style
+
+	class Chapter09 extends React.Component {
+		render() {
+			const style1 = {
+				color: 'red',
+				fontWeight: 'bold'
+			}
+
+			const style2 = {
+				color: 'blue'
+			}
+
+			return (
+				<div style={ ... }></div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter09.js
+
+	class Chapter09 extends React.Component {
+		constructor() {
+			super();
+			this.state = { counter: 0 }
+		}
+		handleClick(event) {
+			this.setState({
+				counter: ++this.state.counter
+			});
+		}
+		render() {
+			return (
+				<div></div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter09.js
+
+	class Chapter09 extends React.Component {
+		render() {
+			const style1 = {
+				color: 'red'
+			}
+
+			const style2 = {
+				color: 'blue'
+			}
+
+			return (
+				<div></div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter09.js
+
+	class Chapter09 extends React.Component {
+		render() {
+			return (
+				<div>
+					<h3 style={
+						this.state.counter%2 && style1 || style2
+					}>Counter: { this.state.counter }</h3>
+					<hr />
+					<button onClick={this.handleClick.bind(this)}>
+						Increment
+					</button>
+				</div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+### CSS Class
+
+	<button className="btn btn-primary">Primary</button>
+	<button className="btn btn-success">Sucess</button>
+	<button className="btn btn-danger">Danger</button>
+</script></section><section  data-markdown><script type="text/template">
+### `classnames` Module
+
+Browser
+
+	github.com/jedwatson/classnames
+
+Terminal
+
+	# install with alias
+	jspm install classnames="github:jedwatson/classnames"
+
+config.js
+
+	map: {
+		// alias
+		"classnames": "github:jedwatson/classnames@x.x.x",
+	}
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter09.js
+
+	class Chapter09 extends React.Component {
+		render() {
+			let isOdd = this.state.counter % 2;
+
+			let btnClass =classNames('btn', {
+				'btn-success': !isOdd,
+				'btn-default': isOdd
+			});
+
+			return (
+				<div>
+				</div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter09.js
+
+	class Chapter09 extends React.Component {
+		render() {
+			return (
+				<div>
+					<button className={ btnClass }>Up</button>
+				</div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+## End</script></section></div>
+        </div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

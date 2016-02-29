@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Reveal.js</title>
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css" id="theme">
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+          document.write( '<link rel="stylesheet" href="/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides"><section  data-markdown><script type="text/template">## Chapter 06 - Nested Component
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter06/Parent.js
+
+	class Parent extends React.Component {
+		render() {
+			let style = {
+				borderStyle: 'solid',
+				borderWidth: '1px',
+				borderColor: 'green',
+				padding: '20px'
+			};
+			return (
+				<div style={ style }>
+					<h3>Parent</h3>
+				</div>
+			);
+		}
+	}
+
+app/index.js
+
+	import Parent from './Chapter06/Parent';
+
+	ReactDOM.render(<Parent />,
+		document.getElementById('app'));
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter06/Child.js
+
+	class Child extends React.Component {
+		render() {
+			let style = {
+				borderStyle: 'solid',
+				borderWidth: '1px',
+				borderColor: 'red',
+				padding: '10px'
+			};
+
+			return (
+				<div style={ style }>
+					<p>Child</p>
+				</div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter06/Parent.js
+
+	import Child from './Child';
+
+	class Parent extends React.Component {
+
+		render() {
+			return (
+				<div style={ style }>
+					<Child />
+				</div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter06/Parent.js
+
+	class Parent extends React.Component {
+		constructor() {
+			super();
+			this.state = {
+				data: { foo: 'bar' }
+			}
+		}
+		render() {
+			return (
+				<div style={ style }>
+					<Child data={ this.state.data } />
+				</div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter06/Child.js
+
+	class Child extends React.Component {
+		render() {
+			return (
+				<div style={ style }>
+					<p>Child</p>
+					<p>{ this.props.data.foo }</p>
+				</div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+## Quiz 03
+</script></section><section  data-markdown><script type="text/template">
+## End</script></section></div>
+        </div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

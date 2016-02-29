@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Reveal.js</title>
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css" id="theme">
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+          document.write( '<link rel="stylesheet" href="/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides"><section  data-markdown><script type="text/template">## Chapter 12 - Isomorphic
+</script></section><section  data-markdown><script type="text/template">
+## Isomorphic
+</script></section><section  data-markdown><script type="text/template">
+### Ecosystem Installation
+
+	# windows
+	npm -g install nodemon
+	npm -g install babel-cli
+
+	# osx
+	sudo npm -g install nodemon
+	sudo npm -g install babel-cli
+</script></section><section  data-markdown><script type="text/template">
+### Repository
+
+	# clone from github
+	git clone https://github.com/tutor4dev/react-course-isomorphic.git
+		isomorphic
+
+	# change directory
+	cd isomorphic
+
+	# install modules from packages.json
+	npm install
+</script></section><section  data-markdown><script type="text/template">
+## Express.js
+</script></section><section  data-markdown><script type="text/template">
+### Folder Structure
+
+	|-package.json
+	|-.babelrc
+	|    +-src
+	|    |    +-public
+	|    |    |    |-browser.js
+	|    |    |    +-app
+	|    |    |    |    +-components
+	|    |    |    |    |    |-ReactApp.js
+	|    |-server.js
+	|    +-dist
+	|    |    +-public
+	|    |    |    |-config.js
+	|    |    |    +-jspm_packages
+	|    |    +-views
+	|    |    |    |-index.swig
+</script></section><section  data-markdown><script type="text/template">
+.babelrc
+
+	{
+		"presets": ["es2015", "react"]
+	}
+
+src/server.js
+
+	import React from 'react';
+	import ReactDOMServer from 'react-dom/server';
+
+	import ReactApp from './public/app/components/ReactApp';
+
+	app.use(express.static(__dirname + '/public'));
+	app.get('/', (req, res) => {
+		res.render('index', {});
+	});
+</script></section><section  data-markdown><script type="text/template">
+dist/views/index.swig
+
+	< body>
+		<h3>React.js - Isomorphic</h3>
+		<hr>
+
+		<div id="app">{{ reactApp | safe }}</div>
+	< /body>
+
+Terminal (src)
+
+	cd src
+	babel **/*.js --out-dir ../dist --watch
+</script></section><section  data-markdown><script type="text/template">
+Terminal (dist)
+
+	cd dist
+	nodemon server.js
+
+Browser
+
+	localhost:3000
+</script></section><section  data-markdown><script type="text/template">
+src/public/app/components/ReactApp.js
+
+	import React from 'react';
+
+	class ReactApp extends React.Component {
+		handleClick() {
+			console.log('Foo');
+		}
+		render() {
+			return (
+				<div>
+					<h3>ReactApp</h3>
+					<button onClick={ this.handleClick.bind(this) }>
+						Foo</button>
+				</div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+src/server.js
+
+	app.get('/', (req, res) => {
+		let reactApp = ReactDOMServer.renderToString(<ReactApp />);
+		res.render('index', { reactApp: reactApp });
+	});
+
+Browser
+
+	localhost:3000
+</script></section><section  data-markdown><script type="text/template">
+### jspm
+
+Terminal (/)
+
+	jspm init
+
+	# install modules from package.json
+	jspm install
+</script></section><section  data-markdown><script type="text/template">
+dist/views/index.swig
+
+	< script src="jspm_packages/system.js">< /script>
+	< script src="config.js">< /script>
+	< script>
+		System.import('browser.js');
+	< /script>
+</script></section><section  data-markdown><script type="text/template">
+## End</script></section></div>
+        </div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

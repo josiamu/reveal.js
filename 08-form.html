@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Reveal.js</title>
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css" id="theme">
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+          document.write( '<link rel="stylesheet" href="/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides"><section  data-markdown><script type="text/template">## Chapter 08 - Form
+</script></section><section  data-markdown><script type="text/template">
+### API
+
+Browser
+
+	api.tutor4dev.com/employees
+
+Postman
+
+	POST api.tutor4dev.com/employees
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter08.js
+
+	class Chapter08 extends React.Component {
+		handleClick(event) {
+			event.preventDefault();
+			console.log('Foo');
+		}
+		render() {
+			return (
+				<div>
+					<form>
+						<button onClick={this.handleClick.bind(this)}>
+							Save</button>
+					</form>
+				</div>
+			);
+		}
+	}
+
+app/index.js
+
+	const apiUrl = 'http://api.tutor4dev.com';
+
+	import Chapter08 from './Chapter08';
+
+	ReactDOM.render(<Chapter08 URL={ apiUrl } />,
+		document.getElementById('app'));
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter08.js
+
+	class Chapter08 extends React.Component {
+		handleClick(event) {
+			let employee = {
+				firstName: 'Foo',
+				lastName: 'Bar',
+				gender: 'M',
+				salary: 25000
+			}
+
+			console.log(employee);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter08.js
+
+	import $ from 'jquery';
+	const pathUrl = 'employees';
+
+	class Chapter08 extends React.Component {
+		handleClick(event) {
+			const url = `${ this.props.URL }/${pathUrl}`;
+
+			$.post(url, employee)
+				.then((data) => {
+					console.log(data);
+				});
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter08.js
+
+	class Chapter08 extends React.Component {
+		render() {
+			return (
+				<div><form>
+					<input type="text" name="firstName"/>
+					<input type="radio" name="gender" value="M"
+						defaultChecked /> Male
+					<input type="date" name="birthDate" />
+					<input type="number" name="salary" />
+					<button onClick={ this.handleClick.bind(this) }>
+						Save</button>
+				</form></div>
+			);
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+app/Chapter08.js
+
+	class Chapter08 extends React.Component {
+		handleClick(event) {
+			let employee = $('form').serialize();
+			console.log(employee)
+
+			$.post(url, employee)
+				.then((data) => {
+					console.log(data);
+				});
+		}
+	}
+</script></section><section  data-markdown><script type="text/template">
+## End</script></section></div>
+        </div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
